@@ -7,7 +7,7 @@
 #include "deal.hpp"
 #include "getshare.hpp" 
 
-// Compteur des fonctions de hashage 
+// Compteur de hash defini dans merkle.cpp
 extern long long hash_count; // 64 bits
 
 //Paramètres par defaut pouvant etre modifies lors de l'execution
