@@ -13,4 +13,6 @@ test_polynomial
 test_merkle
 test_proximity
 test_deal
+test_getshare
 avss_demo
+avss_bench
