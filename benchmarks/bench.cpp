@@ -102,7 +102,7 @@ int main(int argc, char* argv[]) {
     plt::save("avss_temps.png");
     plt::show();
 
-    // Figure 2 : nombre de fonctions de hachages de Deal et GetShare en fonction de n
+    // Figure 2 : nombre de fonctions de hachages de Deal et GetShare en fonction de n P_i
     plt::figure_size(800, 500);
     plt::named_plot("Deal", n_vals, hashes_deal, "bo-");
     plt::named_plot("GetShare", n_vals, hashes_getshare, "rs-");
@@ -112,6 +112,23 @@ int main(int argc, char* argv[]) {
     plt::legend();
     plt::grid(true);
     plt::save("avss_hachages.png");
+    plt::show();
+
+    // Figure 3 : Deal vs GetShare pour participant
+    std::vector<double> hashes_par_Pi;
+    for (size_t k = 0; k < n_vals.size(); ++k) {
+        hashes_par_Pi.push_back(hashes_getshare[k] / n_vals[k]);
+    }
+
+    plt::figure_size(800, 500);
+    plt::named_plot("Deal (Dealer seul)", n_vals, hashes_deal, "bo-");
+    plt::named_plot("GetShare (par P_i)", n_vals, hashes_par_Pi, "rs-");
+    plt::title("Complexite par acteur : Deal vs GetShare par P_i");
+    plt::xlabel("n : participants");
+    plt::ylabel("Nombre de hachages");
+    plt::legend();
+    plt::grid(true);
+    plt::save("avss_complexite_par_acteur.png");
     plt::show();
 
     return 0;
