@@ -95,7 +95,7 @@ int main(int argc, char* argv[]) {
     plt::named_plot("Deal", n_vals, temps_deal,"bo-"); // (nom courbe, x, y, style)
     plt::named_plot("GetShare", n_vals, temps_getshare, "rs-");
     plt::title("Temps d'execution en fonction de n");
-    plt::xlabel("n : participants)");
+    plt::xlabel("n : participants");
     plt::ylabel("Temps : secondes");
     plt::legend();
     plt::grid(true);
@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
     plt::named_plot("Deal", n_vals, hashes_deal, "bo-");
     plt::named_plot("GetShare", n_vals, hashes_getshare, "rs-");
     plt::title("Nombre de hachages en fonction de n");
-    plt::xlabel("n : participants)");
+    plt::xlabel("n : participants");
     plt::ylabel("Nombre de hachages");
     plt::legend();
     plt::grid(true);
