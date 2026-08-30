@@ -12,8 +12,8 @@ extern long long hash_count; // 64 bits
 
 //Paramètres par defaut pouvant etre modifies lors de l'execution
 long p = 7919;
-size_t n = 5; 
-size_t t = 2;
+size_t n = 10; 
+size_t t = 3;
 
 //Fonctions utilitaires d'affichage et de conversion pour la demonstration
 

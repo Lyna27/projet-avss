@@ -180,8 +180,8 @@ Hash_type sha256_raw(const uint8_t* data, size_t len) {
 // Fonction qui calcule la plus petite puissance de 2 superieure ou egale a n.
 size_t next_pow2(size_t n) {
     size_t p = 1;
-    // Left shift = * 2 a chaque iteration.
-    while (p < n) p <<= 1;
+    // Left shift : p double a chaque iteration.
+    while (p < n) p = p * 2;
     return p;
 }
 
