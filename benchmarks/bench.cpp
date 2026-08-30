@@ -123,7 +123,7 @@ int main(int argc, char* argv[]) {
     plt::figure_size(800, 500);
     plt::named_plot("Deal (Dealer seul)", n_vals, hashes_deal, "bo-");
     plt::named_plot("GetShare (par P_i)", n_vals, hashes_par_Pi, "rs-");
-    plt::title("Complexite par acteur : Deal vs GetShare par P_i");
+    plt::title("Complexite de Deal et GetShare par P_i");
     plt::xlabel("n : participants");
     plt::ylabel("Nombre de hachages");
     plt::legend();
