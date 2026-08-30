@@ -48,7 +48,12 @@ int main(int argc, char* argv[]) {
 
     // Ratio t/n fixe a 30% car t ne doit pas depasser un tiers de n
     double ratio = static_cast<double>(t_max) / static_cast<double>(n_max);
-    size_t pas = (n_max <= 50) ? 5 : 10; // if n_max <= 50, pas = 5, else pas = 10
+    size_t pas;
+    if (n_max <= 50) {
+        pas = 5;
+    } else {
+        pas = 10;
+    }
 
     init_field(NTL::ZZ(p));
     FieldElement secret; NTL::conv(secret, 62L); // s = 62
@@ -90,7 +95,7 @@ int main(int argc, char* argv[]) {
         hashes_getshare.push_back((double)bench.nbr_hash);
     }
 
-    // Figure 1 : temps d'exécution de Deal et GetShare en fonction de n
+    // Figure 1 : temps d'exécution de Deal et GetShare pour n P_i
     plt::figure_size(800, 500);
     plt::named_plot("Deal", n_vals, temps_deal,"bo-"); // (nom courbe, x, y, style)
     plt::named_plot("GetShare", n_vals, temps_getshare, "rs-");
@@ -102,7 +107,7 @@ int main(int argc, char* argv[]) {
     plt::save("avss_temps.png");
     plt::show();
 
-    // Figure 2 : nombre de fonctions de hachages de Deal et GetShare en fonction de n P_i
+    // Figure 2 : fonctions de hachages de Deal et GetShare en fonction de n P_i
     plt::figure_size(800, 500);
     plt::named_plot("Deal", n_vals, hashes_deal, "bo-");
     plt::named_plot("GetShare", n_vals, hashes_getshare, "rs-");
@@ -114,7 +119,7 @@ int main(int argc, char* argv[]) {
     plt::save("avss_hachages.png");
     plt::show();
 
-    // Figure 3 : Deal vs GetShare pour participant
+    // Figure 3 : Hachages de Deal et GetShare pour 1 P_i
     std::vector<double> hashes_par_Pi;
     for (size_t k = 0; k < n_vals.size(); ++k) {
         hashes_par_Pi.push_back(hashes_getshare[k] / n_vals[k]);
@@ -129,6 +134,24 @@ int main(int argc, char* argv[]) {
     plt::legend();
     plt::grid(true);
     plt::save("avss_complexite_par_acteur.png");
+    plt::show();
+
+    // Figure 4 : Temps de Deal et GetShare pour 1 P_i
+    std::vector<double> temps_par_Pi;
+    for (size_t k = 0; k < n_vals.size(); ++k) {
+        // On divise le temps total de GetShare par n pour avoir la moyenne d'un participant
+        temps_par_Pi.push_back(temps_getshare[k] / n_vals[k]);
+    }
+
+    plt::figure_size(800, 500);
+    plt::named_plot("Deal (Dealer seul)", n_vals, temps_deal, "bo-"); 
+    plt::named_plot("GetShare (par P_i)", n_vals, temps_par_Pi, "rs-");
+    plt::title("Temps d'execution de Deal et GetShare par acteur");
+    plt::xlabel("n : participants");
+    plt::ylabel("Temps moyen : secondes");
+    plt::legend();
+    plt::grid(true);
+    plt::save("avss_temps_par_acteur.png");
     plt::show();
 
     return 0;
