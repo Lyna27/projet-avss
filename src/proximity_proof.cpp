@@ -9,6 +9,7 @@
 /*
  * Fonction qui geenere le defi non interactif Fiat-Shamir rho.
  * Hache la concatenation d'un tag de domaine et des engagements publics.
+ * D'APRES SCHWARTZ ZIPPEL 
  */
 FieldElement fiat_shamir_rho(
     // Racine de l'arbre global psi(X,Y)
@@ -106,7 +107,7 @@ bool verify_prox(
         return false;
     }
 
-    // Verification que deg(h(X)) <= t
+    // Verification que deg(h(X)) <= t (au lieu du pliage jusqu'a t+1 points)
     if (NTL::deg(proof.h_X) > static_cast<long>(t)) {
         return false;
     }
@@ -140,18 +141,18 @@ bool verify_prox(
             xa[static_cast<long>(k)] = eval_pts[op.indices[k]];
             ya[static_cast<long>(k)] = op.evals[k];
         }
-        Uni_Poly p_i;
+        Uni_Poly p_i; // En fait c'est psi
         NTL::interpolate(p_i, xa, ya);
 
-        // Test d'intersection : p_i(rho) == h(x_i)
+        // Test d'intersection : psi(xi, rho) == h(x_i)
         FieldElement p_i_rho, h_xi;
         NTL::eval(p_i_rho, p_i, proof.rho);
         NTL::eval(h_xi, proof.h_X, eval_pts[i]);
 
-        if (p_i_rho != h_xi) {
+        if (p_i_rho != h_xi) { // Est ce que psi(x_i, rho) == h(x_i) ?
             return false;
         }
     }
 
     return true;
-}
+} // problématique étudiée le fait d'utiliser AVSS pour la clé secrète pour HQC distribué 

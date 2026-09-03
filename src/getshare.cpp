@@ -46,6 +46,7 @@ std::vector<EchoMessage> receive_deal(
     const size_t t = state.threshold;
     const size_t i = state.my_index;
 
+    // si la proximité est = à 0 on abandonne
     if (!verify_prox(broadcast.pi, t, state.x_coords, broadcast.c, broadcast.c_psi_Y)) {
         return {};
     }
